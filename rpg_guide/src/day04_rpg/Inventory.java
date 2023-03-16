@@ -34,23 +34,25 @@ public class Inventory {
 			if (selEquip == 0)
 				break;
 			selEquip -= 1;
-			if (itemList.get(selEquip).kind == Item.WEAPON) {
-				if (Player.getGuildUnit(selUnit - 1).weapon != null) {
-					itemList.add(Player.getGuildUnit(selUnit - 1).weapon);
+			if(selEquip>=0 && selEquip<itemList.size()) {
+				if (itemList.get(selEquip).kind == Item.WEAPON) {
+					if (Player.getGuildUnit(selUnit - 1).weapon != null) {
+						itemList.add(Player.getGuildUnit(selUnit - 1).weapon);
+					}
+					Player.getGuildUnit(selUnit - 1).weapon = itemList.get(selEquip);
+				} else if (itemList.get(selEquip).kind == Item.ARMOR) {
+					if (Player.getGuildUnit(selUnit - 1).armor != null) {
+						itemList.add(Player.getGuildUnit(selUnit - 1).armor);
+					}
+					Player.getGuildUnit(selUnit - 1).armor = itemList.get(selEquip);
+				} else if (itemList.get(selEquip).kind == Item.RING) {
+					if (Player.getGuildUnit(selUnit - 1).ring != null) {
+						itemList.add(Player.getGuildUnit(selUnit - 1).ring);
+					}
+					Player.getGuildUnit(selUnit - 1).ring = itemList.get(selEquip);
 				}
-				Player.getGuildUnit(selUnit - 1).weapon = itemList.get(selEquip);
-			} else if (itemList.get(selEquip).kind == Item.ARMOR) {
-				if (Player.getGuildUnit(selUnit - 1).armor != null) {
-					itemList.add(Player.getGuildUnit(selUnit - 1).armor);
-				}
-				Player.getGuildUnit(selUnit - 1).armor = itemList.get(selEquip);
-			} else if (itemList.get(selEquip).kind == Item.RING) {
-				if (Player.getGuildUnit(selUnit - 1).ring != null) {
-					itemList.add(Player.getGuildUnit(selUnit - 1).ring);
-				}
-				Player.getGuildUnit(selUnit - 1).ring = itemList.get(selEquip);
+				itemList.remove(selEquip);				
 			}
-			itemList.remove(selEquip);
 		}
 	}
 
@@ -71,14 +73,17 @@ public class Inventory {
 			System.out.println("[골드 : " + Player.money + "]");
 			System.out.println("판매할 아이템 번호를 입력하세요. (50 % 세금) [0.뒤로가기]");
 			int selSell = MainGame.scan.nextInt();
-			System.out.println(itemList.get(selSell - 1).name + "을 판매합니다.");
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			if(selSell==0)	break;
+			if(selSell>0 && selSell<=itemList.size()) {
+				System.out.println(itemList.get(selSell - 1).name + "을 판매합니다.");
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				Player.money += (itemList.get(selSell - 1).price / 2);
+				itemList.remove(selSell - 1);				
 			}
-			Player.money += (itemList.get(selSell - 1).price / 2);
-			itemList.remove(selSell - 1);
 		}
 	}
 
