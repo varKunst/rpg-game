@@ -25,6 +25,9 @@ public class Inventory {
 		Player.guild.printAllUnitStaus();
 		System.out.println("아이템 착용할 길드원을 선택하세요 ");
 		int selUnit = MainGame.scan.nextInt();
+		if(selUnit<=0 || selUnit>Player.guild.guildList.size()) {
+			return;
+		}
 		while (true) {
 			Player.guild.printUnitStaus(selUnit - 1);
 			Player.guild.printUnitItem(selUnit - 1);
@@ -34,25 +37,26 @@ public class Inventory {
 			if (selEquip == 0)
 				break;
 			selEquip -= 1;
-			if(selEquip>=0 && selEquip<itemList.size()) {
-				if (itemList.get(selEquip).kind == Item.WEAPON) {
-					if (Player.getGuildUnit(selUnit - 1).weapon != null) {
-						itemList.add(Player.getGuildUnit(selUnit - 1).weapon);
-					}
-					Player.getGuildUnit(selUnit - 1).weapon = itemList.get(selEquip);
-				} else if (itemList.get(selEquip).kind == Item.ARMOR) {
-					if (Player.getGuildUnit(selUnit - 1).armor != null) {
-						itemList.add(Player.getGuildUnit(selUnit - 1).armor);
-					}
-					Player.getGuildUnit(selUnit - 1).armor = itemList.get(selEquip);
-				} else if (itemList.get(selEquip).kind == Item.RING) {
-					if (Player.getGuildUnit(selUnit - 1).ring != null) {
-						itemList.add(Player.getGuildUnit(selUnit - 1).ring);
-					}
-					Player.getGuildUnit(selUnit - 1).ring = itemList.get(selEquip);
-				}
-				itemList.remove(selEquip);				
+			if(selEquip<0 || selEquip>=itemList.size()) {
+				continue;
 			}
+			if (itemList.get(selEquip).kind == Item.WEAPON) {
+				if (Player.getGuildUnit(selUnit - 1).weapon != null) {
+					itemList.add(Player.getGuildUnit(selUnit - 1).weapon);
+				}
+				Player.getGuildUnit(selUnit - 1).weapon = itemList.get(selEquip);
+			} else if (itemList.get(selEquip).kind == Item.ARMOR) {
+				if (Player.getGuildUnit(selUnit - 1).armor != null) {
+					itemList.add(Player.getGuildUnit(selUnit - 1).armor);
+				}
+				Player.getGuildUnit(selUnit - 1).armor = itemList.get(selEquip);
+			} else if (itemList.get(selEquip).kind == Item.RING) {
+				if (Player.getGuildUnit(selUnit - 1).ring != null) {
+					itemList.add(Player.getGuildUnit(selUnit - 1).ring);
+				}
+				Player.getGuildUnit(selUnit - 1).ring = itemList.get(selEquip);
+			}
+			itemList.remove(selEquip);				
 		}
 	}
 
