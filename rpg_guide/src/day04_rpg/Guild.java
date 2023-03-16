@@ -21,12 +21,12 @@ public class Guild {
 		temp = new Unit("사자", 1, 120, 11, 7, 0);
 		guildList.add(temp);
 		for (int i = 0; i < 4; i++) {
-			guildList.get(i).party = true;
+			guildList.get(i).setParty(true);
 		}
 		partyList = new Unit[PARTY_SIZE];
 		int n = 0;
 		for (int i = 0; i < guildList.size(); i++) {
-			if (guildList.get(i).party == true) {
+			if (guildList.get(i).isParty() == true) {
 				partyList[n] = guildList.get(i);
 				n += 1;
 			}
@@ -107,7 +107,7 @@ public class Guild {
 		printAllUnitStaus();
 		System.out.println("삭제할 번호를 입력하세요 ");
 		int sel = MainGame.scan.nextInt();
-		if (guildList.get(sel - 1).party) {
+		if (guildList.get(sel - 1).isParty()) {
 			System.out.println("파티중인 멤버는 삭제할수 없습니다.");
 		} else {
 			System.out.println("=================================");
@@ -159,8 +159,8 @@ public class Guild {
 		System.out.println("참가할 번호를 입력하세요 ");
 		int guildNum = MainGame.scan.nextInt();
 
-		partyList[partyNum - 1].party = false;
-		guildList.get(guildNum - 1).party = true;
+		partyList[partyNum - 1].setParty(false);
+		guildList.get(guildNum - 1).setParty(true);
 
 		System.out.println("====================================");
 		System.out.print("[이름 : " + partyList[partyNum - 1].getName() + "]");
@@ -171,7 +171,7 @@ public class Guild {
 
 		int n = 0;
 		for (int i = 0; i < guildList.size(); i++) {
-			if (guildList.get(i).party) {
+			if (guildList.get(i).isParty()) {
 				partyList[n] = guildList.get(i);
 				n += 1;
 			}

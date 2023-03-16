@@ -8,7 +8,7 @@ public class Unit {
 	private int att;
 	private int def;
 	private int exp;
-	boolean party;
+	private boolean party;
 	private Item weapon;
 	private Item armor;
 	private Item ring;

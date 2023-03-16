@@ -33,7 +33,7 @@ public class FileData {
 			gameData += "/";
 			gameData += temp.get(i).getExp();
 			gameData += "/";
-			gameData += temp.get(i).party;
+			gameData += temp.get(i).isParty();
 			gameData += "\r\n";
 			if (temp.get(i).getWeapon() == null) {
 				gameData += temp.get(i).getWeapon();
