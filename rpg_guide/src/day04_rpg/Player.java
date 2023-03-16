@@ -3,13 +3,37 @@ package day04_rpg;
 import java.util.ArrayList;
 
 public class Player {
-	static int money;
-	static Guild guild = new Guild();
-	static Inventory inven = new Inventory();
+	private static int money;
+	private static Guild guild = new Guild();
+	private static Inventory inven = new Inventory();
 
-	Player() {
+	public Player() {
 		money = 100000;
 		guild.setGuild();
+	}
+
+	public static int getMoney() {
+		return money;
+	}
+
+	public static void setMoney(int money) {
+		Player.money = money;
+	}
+
+	public static Guild getGuild() {
+		return guild;
+	}
+
+	public static void setGuild(Guild guild) {
+		Player.guild = guild;
+	}
+
+	public static Inventory getInven() {
+		return inven;
+	}
+
+	public static void setInven(Inventory inven) {
+		Player.inven = inven;
 	}
 
 	public void guildMenu() {
@@ -20,23 +44,23 @@ public class Player {
 		inven.inventoryMenu();
 	}
 
-	static public ArrayList<Unit> getGuildList() {
-		return guild.guildList;
+	public static ArrayList<Unit> getGuildList() {
+		return guild.getGuildList();
 	}
 
-	static public ArrayList<Item> getItemList() {
-		return inven.itemList;
+	public static ArrayList<Item> getItemList() {
+		return inven.getItemList();
 	}
 
-	static public Unit getGuildUnit(int num) {
+	public static Unit getGuildUnit(int num) {
 		return guild.getGuildUnit(num);
 	}
 
-	static public int getGuildSize() {
-		return guild.guildList.size();
+	public static int getGuildSize() {
+		return guild.getListSize();
 	}
 
-	static public int getItemSize() {
-		return inven.itemList.size();
+	public static int getItemSize() {
+		return inven.getListSize();
 	}
 }
