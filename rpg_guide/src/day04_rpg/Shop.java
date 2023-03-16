@@ -95,14 +95,9 @@ public class Shop {
 					if (itemList.get(i).kind == selKind) {
 						count += 1;
 						if (count == selNum) {
-							if(Player.money>=itemList.get(i).price) {
-								Player.inven.addItem(itemList.get(i));
-								Player.money -= itemList.get(i).price;
-								System.out.println("[" + itemList.get(i).name + "] 을 구입했습니다.");								
-							}
-							else {
-								System.out.println("돈이 부족합니다.");
-							}
+							Player.inven.addItem(itemList.get(i));
+							Player.money -= itemList.get(i).price;
+							System.out.println("[" + itemList.get(i).name + "] 을 구입했습니다.");								
 							try {
 								Thread.sleep(1000);
 							} catch (InterruptedException e) {
