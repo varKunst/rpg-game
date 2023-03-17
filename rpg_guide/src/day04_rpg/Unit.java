@@ -102,38 +102,38 @@ public class Unit {
 	}
 
 	public Unit(String n, int l, int h, int a, int d, int e) {
-		name = n;
-		level = l;
-		maxHp = h;
-		att = a;
-		def = d;
-		exp = e;
-		hp = maxHp;
-		party = false;
-		weapon = null;
-		armor = null;
-		ring = null;
+		this.name = n;
+		this.level = l;
+		this.maxHp = h;
+		this.att = a;
+		this.def = d;
+		this.exp = e;
+		this.hp = this.maxHp;
+		this.party = false;
+		this.weapon = null;
+		this.armor = null;
+		this.ring = null;
 	}
 
 	public Unit(String n, int l, int h, int x, int a, int d, int e, boolean p) {
-		name = n;
-		level = l;
-		hp = h;
-		maxHp = x;
-		att = a;
-		def = d;
-		exp = e;
-		hp = maxHp;
-		party = p;
-		weapon = null;
-		armor = null;
-		ring = null;
+		this.name = n;
+		this.level = l;
+		this.hp = h;
+		this.maxHp = x;
+		this.att = a;
+		this.def = d;
+		this.exp = e;
+		this.hp = maxHp;
+		this.party = p;
+		this.weapon = null;
+		this.armor = null;
+		this.ring = null;
 	}
 
 	public void setItem(Item w, Item a, Item r) {
-		weapon = w;
-		armor = a;
-		ring = r;
+		this.weapon = w;
+		this.armor = a;
+		this.ring = r;
 	}
 
 	public void printStatus() {
@@ -178,5 +178,21 @@ public class Unit {
 		} else {
 			System.out.println("[반지 : " + ring.getName() + "]");
 		}
+	}
+
+	public void attack(Monster monster) {
+		int damage = MainGame.ran.nextInt(5) + this.att;
+		int monsterHp = monster.getHp();
+		
+		for(int i=0; i<damage; i++) {
+			monsterHp--;
+			if(monsterHp==0) {
+				System.out.printf("%s DIED...\n", monster.getName());
+				break;
+			}
+		}
+				
+		monster.setHp(monsterHp);
+		System.out.println("몬스터의 남은 HP: " + monster.getHp());
 	}
 }

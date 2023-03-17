@@ -141,6 +141,10 @@ public class Guild {
 	public void clearList() {
 		this.guildList.clear();
 	}
+	
+	public Unit[] getPartyList() {
+		return this.partyList.clone();
+	}
 
 	public void printParty() {
 		System.out.println("================ [파티원] ===============");

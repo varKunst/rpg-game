@@ -85,20 +85,31 @@ public class Shop {
 				else if (selKind == Item.getRing())
 					System.out.println("=========== [반지] ============");
 				printItems(selKind);
+				
 				System.out.println("[골드 : " + Player.getMoney() + "]");
 				System.out.println("구입할 아이템 번호를 입력하세요 [0.뒤로가기]");
 				int selNum = MainGame.scan.nextInt();
+				
 				if (selNum == 0)
 					break;
+
+				System.out.println("구입할 개수를 입력하세요 [0.뒤로가기]");
+				int selCnt = MainGame.scan.nextInt();
+
+				if (selCnt == 0)
+					break;
+				
 				int count = 0;
 				for (int i = 0; i < itemList.size(); i++) {
 					if (itemList.get(i).getKind() == selKind) {
 						count += 1;
 						if (count == selNum) {
-							if(Player.getMoney()>=itemList.get(i).getPrice()) {
-								Player.getInven().addItem(itemList.get(i));
-								Player.setMoney(Player.getMoney()-itemList.get(i).getPrice());
-								System.out.println("[" + itemList.get(i).getName() + "] 을 구입했습니다.");								
+							if(Player.getMoney()>=itemList.get(i).getPrice()*selCnt) {
+								for(int j=0; j<selCnt; j++) {									
+									Player.getInven().addItem(itemList.get(i));
+									Player.setMoney(Player.getMoney()-itemList.get(i).getPrice());
+								}
+								System.out.println("[" + itemList.get(i).getName() + "] 을 " + selCnt + "개 구입했습니다.");								
 							}
 							else {
 								System.out.println("돈이 부족합니다.");
