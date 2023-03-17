@@ -64,7 +64,8 @@ public class Guild {
 	}
 
 	private void buyUnit() {
-		if (Player.getMoney() < 5000) {
+		final int PRICE = 5000;
+		if (Player.getMoney() < PRICE) {
 			System.out.println("돈이 부족합니다.");
 			return;
 		}
@@ -99,7 +100,7 @@ public class Guild {
 		}
 
 		this.guildList.add(temp);
-		Player.setMoney(Player.getMoney()-5000);
+		Player.setMoney(Player.getMoney()-PRICE);
 	}
 	
 	public void addUnit(Unit unit) {
@@ -220,7 +221,6 @@ public class Guild {
 		else if (sel == 0) {
 			return;
 		}
-		
 	}
 	
 	private void sortByName() {
@@ -313,7 +313,7 @@ public class Guild {
 	public void guildMenu() {
 		while (true) {
 			System.out.println("=============== [길드관리] ================");
-			System.out.println("[1.길드목록] [2.길드원추가] [3.길드원삭제]\n" + "[4.파티원교체] [5.정렬]  [0.뒤로가기]");
+			System.out.println("[1.길드원목록] [2.길드원추가] [3.길드원삭제]\n" + "[4.파티원교체] [5.정렬하기] [0.뒤로가기]");
 			int sel = MainGame.scan.nextInt();
 			if (sel == 1) {
 				printAllUnitStaus();

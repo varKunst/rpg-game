@@ -115,10 +115,11 @@ public class Unit {
 		ring = null;
 	}
 
-	public Unit(String n, int l, int h, int a, int d, int e, boolean p) {
+	public Unit(String n, int l, int h, int x, int a, int d, int e, boolean p) {
 		name = n;
 		level = l;
-		maxHp = h;
+		hp = h;
+		maxHp = x;
 		att = a;
 		def = d;
 		exp = e;
