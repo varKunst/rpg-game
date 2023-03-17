@@ -64,8 +64,10 @@ public class Guild {
 	}
 
 	private void buyUnit() {
-		if (Player.getMoney() < 5000)
+		if (Player.getMoney() < 5000) {
+			System.out.println("돈이 부족합니다.");
 			return;
+		}
 		
 		String[] n1 = { "박", "이", "김", "최", "유", "지", "오" };
 		String[] n2 = { "명", "기", "종", "민", "재", "석", "광" };
