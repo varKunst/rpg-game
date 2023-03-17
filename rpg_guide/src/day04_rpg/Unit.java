@@ -1,5 +1,7 @@
 package day04_rpg;
 
+import java.util.*;
+
 public class Unit {
 	private String name;
 	private int level;
@@ -9,9 +11,12 @@ public class Unit {
 	private int def;
 	private int exp;
 	private boolean party;
+	private boolean dead;
 	private Item weapon;
 	private Item armor;
 	private Item ring;
+	
+	private ArrayList<Skill> skillList;
 
 	public String getName() {
 		return name;
@@ -77,6 +82,14 @@ public class Unit {
 		this.party = party;
 	}
 
+	public boolean isDead() {
+		return dead;
+	}
+
+	public void setDead(boolean dead) {
+		this.dead = dead;
+	}
+
 	public Item getWeapon() {
 		return weapon;
 	}
@@ -100,6 +113,22 @@ public class Unit {
 	public void setRing(Item ring) {
 		this.ring = ring;
 	}
+	
+	public ArrayList<Skill> getSkillList() {
+		return (ArrayList<Skill>) this.skillList.clone();
+	}
+	
+	public void addSkill(Skill skill) {
+		this.skillList.add(skill);
+	}
+	
+	private void printSkillList() {
+		int num = 1;
+		for(Skill skill: this.skillList) {
+			System.out.printf(" [%d. %s] ", num++, skill.getName());
+		}
+		System.out.println();
+	}
 
 	public Unit(String n, int l, int h, int a, int d, int e) {
 		this.name = n;
@@ -110,9 +139,11 @@ public class Unit {
 		this.exp = e;
 		this.hp = this.maxHp;
 		this.party = false;
+		this.dead = false;
 		this.weapon = null;
 		this.armor = null;
 		this.ring = null;
+		this.skillList = new ArrayList<Skill>();
 	}
 
 	public Unit(String n, int l, int h, int x, int a, int d, int e, boolean p) {
@@ -125,9 +156,11 @@ public class Unit {
 		this.exp = e;
 		this.hp = maxHp;
 		this.party = p;
+		this.dead = false;
 		this.weapon = null;
 		this.armor = null;
 		this.ring = null;
+		this.skillList = new ArrayList<Skill>();
 	}
 
 	public void setItem(Item w, Item a, Item r) {
@@ -193,6 +226,39 @@ public class Unit {
 		}
 				
 		monster.setHp(monsterHp);
-		System.out.println("몬스터의 남은 HP: " + monster.getHp());
+	}
+	
+	public void defense(Unit unit) {
+		System.out.printf("%s는 방어 태세에 들어갔다!\n", unit.getName());
+		unit.setDef(unit.getDef()*2);
+	}
+	
+	public void checkLevelUp() {
+		if(this.exp>=this.level*50) {
+			this.level++;
+			this.exp = 0;
+			System.out.printf("%s는 레벨 %d로 올랐습니다!\n", this.name, this.level);
+		}
+	}
+	
+	public boolean useSkill(Monster monster) {
+		if(this.skillList.size()==0) {
+			System.out.println("보유한 스킬이 없다.");
+			return false;
+		}
+		
+		printSkillList();
+		int sel = MainGame.scan.nextInt();
+		
+		if(sel<1 || sel>this.skillList.size())
+			return false;
+		
+		Skill skill = skillList.get(sel-1);
+		
+		if(skill.getKind()==1)		skill.useSkill(monster);
+		else if(skill.getKind()==2)	skill.useSkill(this);
+		else if(skill.getKind()==3)	skill.useSkill(monster, this);
+		
+		return true;
 	}
 }

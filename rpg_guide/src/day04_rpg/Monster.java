@@ -26,7 +26,7 @@ public class Monster {
 		for(int i=0; i<damage; i++) {
 			unitHp--;
 			if(unitHp==0) {
-				System.out.printf("%s DIED...\n", unit.getHp());
+				System.out.printf("%s DIED...\n", unit.getName());
 				break;
 			}
 		}
