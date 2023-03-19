@@ -238,6 +238,8 @@ public class Unit {
 			this.level++;
 			this.exp = 0;
 			System.out.printf("%s는 레벨 %d로 올랐습니다!\n", this.name, this.level);
+			
+			addSkill();
 		}
 	}
 	
@@ -260,5 +262,18 @@ public class Unit {
 		else if(skill.getKind()==3)	skill.useSkill(monster, this);
 		
 		return true;
+	}
+	
+	private void addSkill() {
+		if(this.level==2) {
+			Skill newSkill = new Skill("찌르기", 50, 1);
+			this.skillList.add(newSkill);
+		} else if(this.level==3) {
+			Skill newSkill = new Skill("베기", 55, 1);
+			this.skillList.add(newSkill);
+		} else if(this.level==5) {
+			Skill newSkill = new Skill("HP회복", 30, 2);
+			this.skillList.add(newSkill);
+		}
 	}
 }

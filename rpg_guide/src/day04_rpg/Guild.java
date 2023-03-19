@@ -33,9 +33,6 @@ public class Guild {
 				this.partyList.add(this.guildList.get(i));
 			}
 		}
-		
-		Skill tempSkill = new Skill("호랑이발톱", 50, 1);
-		this.guildList.get(0).addSkill(tempSkill);
 	}
 
 	public Unit getGuildUnit(int num) {
@@ -342,11 +339,32 @@ public class Guild {
 			}
 		}
 	}
+	
+	private void healMembers() {
+		if(Player.getMoney()<5000) {
+			System.out.println("돈이 부족합니다.");
+			return;
+		}
+			
+		printParty();
+		System.out.println("치료할 멤버를 선택해주세요.");
+		int sel = MainGame.scan.nextInt();
+		
+		recoverMaxHp(sel-1);
+		Player.setMoney(Player.getMoney()-5000);
+	}
+	
+	private void recoverMaxHp(int number) {
+		Unit target = this.partyList.get(number);
+		target.setHp(target.getMaxHp());
+		
+		System.out.printf("%s의 HP가 모두 회복되었다!\n", target.getName());
+	}
 
 	public void guildMenu() {
 		while (true) {
 			System.out.println("=============== [길드관리] ================");
-			System.out.println("[1.길드원목록] [2.길드원추가] [3.길드원삭제]\n" + "[4.파티원교체] [5.정렬하기] [0.뒤로가기]");
+			System.out.println("[1.길드원목록] [2.길드원추가] [3.길드원삭제]\n" + "[4.파티원교체] [5.정렬하기] [6.회복하기]\n[0.뒤로가기]");
 			int sel = MainGame.scan.nextInt();
 			if (sel == 1) {
 				printAllUnitStaus();
@@ -358,7 +376,9 @@ public class Guild {
 				partyChange();
 			} else if (sel == 5) {
 				sortMembers();
-			} 
+			} else if (sel == 6) {
+				healMembers();
+			}
 			else if (sel == 0) {
 				break;
 			}

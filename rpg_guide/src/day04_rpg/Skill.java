@@ -53,7 +53,12 @@ public class Skill {
 	}
 
 	public void useSkill(Unit unit) {
-		
+		for(int i=0; i<this.effect; i++) {
+			unit.setHp(unit.getHp()+1);
+			
+			if(unit.getHp()==unit.getMaxHp())
+				break;
+		}
 	}
 
 	public void useSkill(Monster monster, Unit unit) {

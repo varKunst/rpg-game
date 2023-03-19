@@ -122,6 +122,11 @@ public class Player {
 				int exp = monster.getExp();
 				unit.setExp(unit.getExp()+exp);
 				System.out.printf("전투에 이겨서 경험치를 %d 얻었다!\n", exp);
+				
+				int money = MainGame.ran.nextInt(1000) + 2500;
+				Player.setMoney(Player.getMoney()+money);
+				System.out.printf("전투에 이겨서 %d원을 얻었다!\n", money);
+				
 				unit.checkLevelUp();
 				break;
 			} else if(unit.getHp()==0) {
